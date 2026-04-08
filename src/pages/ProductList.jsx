@@ -174,7 +174,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
       )}
 
       {/* pagination */}
-      {productList.length > 0 && (
+      {productList.length > 10 && (
         <div className="p-4 flex justify-center items-center gap-3 flex-wrap bg-white">
           {page > 1 && (
             <button
