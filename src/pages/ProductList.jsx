@@ -104,6 +104,9 @@ const ProductList = ({ openForm, setOpenForm }) => {
 
   return (
     <div className="p-4 sm:p-6">
+      {openForm && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"></div>
+      )}
       {/* category filter*/}
       <div className="flex gap-3 flex-wrap mb-6">
         <button
@@ -143,7 +146,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
       {/* product grid */}
 
       {productList.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
+        <div className="flex flex-col items-center justify-center h-full min-h-[60vh] text-center">
           <FaBoxOpen className="text-6xl text-gray-400" />
 
           <h2 className="text-xl font-semibold mt-4 text-gray-700">
@@ -171,7 +174,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
       )}
 
       {/* pagination */}
-      <div className="flex justify-center items-center gap-3 mt-8 flex-wrap">
+      <div className="p-4 flex justify-center items-center gap-3 flex-wrap border-t bg-white">
         {page > 1 && (
           <button
             onClick={goToPrev}
@@ -186,11 +189,11 @@ const ProductList = ({ openForm, setOpenForm }) => {
             key={i}
             onClick={() => goToPage(i + 1)}
             className={`px-4 py-2 rounded-lg border
-        ${
-          page === i + 1
-            ? "bg-teal-600 text-white"
-            : "bg-white hover:bg-gray-100"
-        }`}
+          ${
+            page === i + 1
+              ? "bg-teal-600 text-white"
+              : "bg-white hover:bg-gray-100"
+          }`}
           >
             {i + 1}
           </button>
