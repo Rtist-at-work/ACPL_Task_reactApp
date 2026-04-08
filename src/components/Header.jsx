@@ -1,4 +1,4 @@
-const Header = ({ title = "Organic Store", handleToggle }) => {
+const Header = ({ title = "QuicKart", handleToggle }) => {
   return (
     <header className="w-full h-16 bg-[#ADFFFE] flex items-center justify-between px-4 sm:px-6 md:px-10 lg:px-12 ">
       <h1 className="text-base sm:text-lg md:text-xl font-bold text-[#004F4F]">

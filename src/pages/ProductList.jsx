@@ -22,7 +22,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
 
   // pagination
   const [page, setPage] = useState(1);
-  const [limit] = useState(2);
+  const [limit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
 
   // categories
@@ -172,36 +172,38 @@ const ProductList = ({ openForm, setOpenForm }) => {
 
       {/* pagination */}
       <div className="flex justify-center items-center gap-3 mt-8 flex-wrap">
-        <button
-          onClick={goToPrev}
-          disabled={page === 1}
-          className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 disabled:opacity-50"
-        >
-          Prev
-        </button>
+        {page > 1 && (
+          <button
+            onClick={goToPrev}
+            className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
+          >
+            Prev
+          </button>
+        )}
 
         {[...Array(totalPages)].map((_, i) => (
           <button
             key={i}
             onClick={() => goToPage(i + 1)}
             className={`px-4 py-2 rounded-lg border
-              ${
-                page === i + 1
-                  ? "bg-teal-600 text-white"
-                  : "bg-white hover:bg-gray-100"
-              }`}
+        ${
+          page === i + 1
+            ? "bg-teal-600 text-white"
+            : "bg-white hover:bg-gray-100"
+        }`}
           >
             {i + 1}
           </button>
         ))}
 
-        <button
-          onClick={goToNext}
-          disabled={page === totalPages}
-          className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100 disabled:opacity-50"
-        >
-          Next
-        </button>
+        {page < totalPages && (
+          <button
+            onClick={goToNext}
+            className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
+          >
+            Next
+          </button>
+        )}
       </div>
 
       {/* modal */}
