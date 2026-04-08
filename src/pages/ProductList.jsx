@@ -174,40 +174,42 @@ const ProductList = ({ openForm, setOpenForm }) => {
       )}
 
       {/* pagination */}
-      <div className="p-4 flex justify-center items-center gap-3 flex-wrap border-t bg-white">
-        {page > 1 && (
-          <button
-            onClick={goToPrev}
-            className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
-          >
-            Prev
-          </button>
-        )}
+      {productList.length > 0 && (
+        <div className="p-4 flex justify-center items-center gap-3 flex-wrap bg-white">
+          {page > 1 && (
+            <button
+              onClick={goToPrev}
+              className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
+            >
+              Prev
+            </button>
+          )}
 
-        {[...Array(totalPages)].map((_, i) => (
-          <button
-            key={i}
-            onClick={() => goToPage(i + 1)}
-            className={`px-4 py-2 rounded-lg border
+          {[...Array(totalPages)].map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goToPage(i + 1)}
+              className={`px-4 py-2 rounded-lg border
           ${
             page === i + 1
               ? "bg-teal-600 text-white"
               : "bg-white hover:bg-gray-100"
           }`}
-          >
-            {i + 1}
-          </button>
-        ))}
+            >
+              {i + 1}
+            </button>
+          ))}
 
-        {page < totalPages && (
-          <button
-            onClick={goToNext}
-            className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
-          >
-            Next
-          </button>
-        )}
-      </div>
+          {page < totalPages && (
+            <button
+              onClick={goToNext}
+              className="px-4 py-2 rounded-lg border bg-white hover:bg-gray-100"
+            >
+              Next
+            </button>
+          )}
+        </div>
+      )}
 
       {/* modal */}
       <Modal
