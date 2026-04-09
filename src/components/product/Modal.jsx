@@ -227,15 +227,20 @@ const Modal = ({
 
       if (selectedProduct) {
         res = await updateProduct(selectedProduct._id, fd);
-        console.log(res);
         handleSaveProduct(res.data, true); //update response data
       } else {
         res = await createProduct(fd);
-        console.log(res);
         handleSaveProduct(res.data, false); //update response data
       }
 
       setProduct(initialState);
+      setSpecKey("");
+      setSpecValue("");
+      setVariant({
+        name: "",
+        additionalPrice: "",
+        stock: "",
+      });
       setOpenForm(false);
     } catch (err) {
       console.error(err.response?.data || err.message);

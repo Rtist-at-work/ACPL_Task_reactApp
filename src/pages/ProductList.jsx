@@ -9,6 +9,7 @@ import ProductCard from "../components/product/ProductCard";
 import Modal from "../components/product/Modal";
 import { FaBoxOpen } from "react-icons/fa";
 import ConfirmModal from "../components/product/ConfirmModal";
+import { useCallback } from "react";
 
 const ProductList = ({ openForm, setOpenForm }) => {
   //  product list
@@ -50,20 +51,24 @@ const ProductList = ({ openForm, setOpenForm }) => {
   };
 
   // update productlist
-  const handleSaveProduct = (savedProduct, isEdit) => {
-    if (isEdit) {
-      // update existing product
-      setProductList((prev) =>
-        prev.map((p) => (p._id === savedProduct._id ? savedProduct : p)),
-      );
-    } else {
-      // add new product at top
-      setProductList((prev) => [savedProduct, ...prev]);
-    }
-  };
+  const handleSaveProduct = useCallback(
+    (savedProduct, isEdit) => {
+      if (isEdit) {
+        // update existing product
+        setProductList((prev) =>
+          prev.map((p) => (p._id === savedProduct._id ? savedProduct : p)),
+        );
+      } else {
+        // add new product at top
+        setProductList((prev) => [savedProduct, ...prev]);
+        setCategories((prev)=>[...prev,savedProduct.category])
+      }
+    },
+    [],
+  );
 
   // delete product
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     try {
       await deleteProduct(deletingId);
 
@@ -75,6 +80,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
         setPage((prev) => prev - 1);
       } else {
         setProductList(res.data.products || []);
+        setCategories(res.data.categories || []);
         setTotalPages(res.data.totalPages || 1);
       }
     } catch (err) {
@@ -83,13 +89,13 @@ const ProductList = ({ openForm, setOpenForm }) => {
       setDeletingId(null);
       setConfirmOpen(false);
     }
-  };
+  }, [deletingId, page, limit, selectedCategory]);
 
   // edit product
-  const handleEdit = (product) => {
+  const handleEdit = useCallback((product) => {
     setSelectedProduct(product);
     setOpenForm(true);
-  };
+  },[])
 
   // pagination
   const goToNext = () => {
@@ -101,7 +107,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
   };
 
   const goToPage = (p) => setPage(p);
-
+ 
   return (
     <div className="p-4 sm:p-6">
       {openForm && (
@@ -216,6 +222,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
         openForm={openForm}
         setOpenForm={setOpenForm}
         selectedProduct={selectedProduct}
+        setCategories={setCategories}
         updateProduct={updateProduct}
         createProduct={createProduct}
         handleSaveProduct={handleSaveProduct}
@@ -223,7 +230,10 @@ const ProductList = ({ openForm, setOpenForm }) => {
 
       <ConfirmModal
         isOpen={confirmOpen}
-        onClose={() => setConfirmOpen(false)}
+        onClose={() => {
+          setDeletingId("")
+          setConfirmOpen(false)
+        }}
         onConfirm={handleDelete}
       />
     </div>
