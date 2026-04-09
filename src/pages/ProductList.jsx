@@ -45,7 +45,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
     try {
       setLoading(true);
       const res = await getAllProducts(page, limit, selectedCategory);
-      console.log(res);
+
       setProductList(res.data.products || []);
       setTotalPages(res.data.totalPages || 1);
       setCategories(res.data.categories || []);
@@ -185,7 +185,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
       )}
 
       {/* pagination */}
-      {productList.length > 10 && (
+      {totalPages > 1 && (
         <div className="p-4 flex justify-center items-center gap-3 flex-wrap bg-white">
           {page > 1 && (
             <button
