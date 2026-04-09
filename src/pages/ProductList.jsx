@@ -33,6 +33,9 @@ const ProductList = ({ openForm, setOpenForm }) => {
   // delete loader
   const [deletingId, setDeletingId] = useState(null);
 
+  // loader state
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     fetchproductList();
   }, [page, selectedCategory]);
@@ -40,6 +43,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
   // fetch productList
   const fetchproductList = async () => {
     try {
+      setLoading(true);
       const res = await getAllProducts(page, limit, selectedCategory);
       console.log(res);
       setProductList(res.data.products || []);
@@ -47,25 +51,24 @@ const ProductList = ({ openForm, setOpenForm }) => {
       setCategories(res.data.categories || []);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   // update productlist
-  const handleSaveProduct = useCallback(
-    (savedProduct, isEdit) => {
-      if (isEdit) {
-        // update existing product
-        setProductList((prev) =>
-          prev.map((p) => (p._id === savedProduct._id ? savedProduct : p)),
-        );
-      } else {
-        // add new product at top
-        setProductList((prev) => [savedProduct, ...prev]);
-        setCategories((prev)=>[...prev,savedProduct.category])
-      }
-    },
-    [],
-  );
+  const handleSaveProduct = useCallback((savedProduct, isEdit) => {
+    if (isEdit) {
+      // update existing product
+      setProductList((prev) =>
+        prev.map((p) => (p._id === savedProduct._id ? savedProduct : p)),
+      );
+    } else {
+      // add new product at top
+      setProductList((prev) => [savedProduct, ...prev]);
+      setCategories((prev) => [...prev, savedProduct.category]);
+    }
+  }, []);
 
   // delete product
   const handleDelete = useCallback(async () => {
@@ -95,7 +98,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
   const handleEdit = useCallback((product) => {
     setSelectedProduct(product);
     setOpenForm(true);
-  },[])
+  }, []);
 
   // pagination
   const goToNext = () => {
@@ -107,7 +110,7 @@ const ProductList = ({ openForm, setOpenForm }) => {
   };
 
   const goToPage = (p) => setPage(p);
- 
+
   return (
     <div className="p-4 sm:p-6">
       {openForm && (
@@ -151,14 +154,16 @@ const ProductList = ({ openForm, setOpenForm }) => {
 
       {/* product grid */}
 
-      {productList.length === 0 ? (
+      {loading ? (
+        <div className="flex justify-center items-center min-h-[60vh]">
+          <div className="loader border-4 border-teal-500 border-t-transparent rounded-full w-12 h-12 animate-spin"></div>
+        </div>
+      ) : productList.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-full min-h-[60vh] text-center">
           <FaBoxOpen className="text-6xl text-gray-400" />
-
           <h2 className="text-xl font-semibold mt-4 text-gray-700">
             No products found
           </h2>
-
           <p className="text-sm text-gray-500 mt-1">
             Try adding a product or change category
           </p>
@@ -231,8 +236,8 @@ const ProductList = ({ openForm, setOpenForm }) => {
       <ConfirmModal
         isOpen={confirmOpen}
         onClose={() => {
-          setDeletingId("")
-          setConfirmOpen(false)
+          setDeletingId("");
+          setConfirmOpen(false);
         }}
         onConfirm={handleDelete}
       />
