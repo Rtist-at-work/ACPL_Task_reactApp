@@ -90,9 +90,9 @@ const ProductDetailsModal = ({ product, onClose }) => {
                   key={i}
                   src={img.uri}
                   onClick={() => setCurrentIndex(i)}
-                  className={`h-16 w-16 object-cover rounded-lg cursor-pointer border-2 ${
+                  className={`h-16 w-16 object-cover rounded-lg cursor-pointer border-2 p-2 ${
                     i === currentIndex
-                      ? "border-purple-500"
+                      ? "border-gray-600"
                       : "border-transparent"
                   }`}
                 />
