@@ -41,7 +41,7 @@ const ProductDetailsModal = ({ product, onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4">
+    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-md flex items-center justify-center p-4 ">
       <div className="bg-[#e6f4f3] w-full max-w-6xl rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
         {/* left image carousel */}
         <div className="md:w-1/2 bg-white p-6 flex flex-col justify-center items-center relative">

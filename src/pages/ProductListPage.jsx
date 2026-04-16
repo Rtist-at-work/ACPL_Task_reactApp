@@ -31,8 +31,8 @@ const ProductList = ({ openForm, setOpenForm }) => {
     handleDelete,
     handleSaveProduct,
   } = useProductList(setOpenForm);
-  console.log('selectedProduct && !openForm  :', selectedProduct && !openForm )
-
+  
+ 
   return (
     <div className="p-4 sm:p-6">
       {openForm && (
@@ -81,8 +81,8 @@ const ProductList = ({ openForm, setOpenForm }) => {
       <ConfirmModal
         isOpen={confirmOpen}
         onClose={() => {
-          setConfirmOpen(false)
-          setDeletingId(null)
+          setConfirmOpen(false);
+          setDeletingId(null);
         }}
         onConfirm={handleDelete}
       />

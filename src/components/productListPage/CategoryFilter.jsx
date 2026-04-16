@@ -12,7 +12,7 @@ const CategoryFilter = ({
 
   return (
     <div className="mb-6">
-      <div className="flex gap-2 flex-wrap items-center">
+      <div className="flex gap-2 sm:flex-wrap overflow-x-auto items-center">
         <FormButton
           type="button"
           variant={selectedCategory === "" ? "primary" : "secondary"}

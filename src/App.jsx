@@ -11,9 +11,9 @@ const App = () => {
   const handleToggle = () => {
     setOpenForm(() => !openForm);
   };
-  
+
   return (
-    <div className="h-screen w-screen">
+    <div className="h-screen w-screen overflow-x-hidden">
       <Toaster
         position="top-right"
         reverseOrder={false}
