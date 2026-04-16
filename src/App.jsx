@@ -1,6 +1,6 @@
 import Header from "./components/Header";
 import { useState } from "react";
-import ProductList from "./pages/ProductList";
+import ProductList from "./pages/ProductListPage";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
   const handleToggle = () => {
     setOpenForm(() => !openForm);
   };
-
+  
   return (
     <div className="h-screen w-screen">
       <Toaster
