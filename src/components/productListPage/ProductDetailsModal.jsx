@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  FaTimes,
-  FaStar,
-  FaChevronLeft,
-  FaChevronRight,
-} from "react-icons/fa";
+import { FaTimes, FaStar, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const ProductDetailsModal = ({ product, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -38,37 +33,29 @@ const ProductDetailsModal = ({ product, onClose }) => {
   });
 
   const next = () => {
-    setCurrentIndex((prev) =>
-      prev === images.length - 1 ? 0 : prev + 1
-    );
+    setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
   };
 
   const prev = () => {
-    setCurrentIndex((prev) =>
-      prev === 0 ? images.length - 1 : prev - 1
-    );
+    setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
   };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-4 sm:p-4">
-      
       {/* container */}
       <div className="bg-[#e6f4f3] w-full h-full sm:h-auto max-w-6xl rounded-none sm:rounded-3xl shadow-2xl overflow-hidden flex flex-col md:flex-row">
-        
         {/* LEFT - IMAGE */}
         <div className="w-full md:w-1/2 bg-white p-3 sm:p-6 flex flex-col items-center justify-center relative">
-          
           {/* close */}
           <button
             onClick={onClose}
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 text-gray-600 hover:text-black"
+            className="absolute top-4 right-4 text-gray-600 hover:text-black z-50"
           >
             <FaTimes size={18} />
           </button>
 
           {/* main image */}
           <div className="relative w-full flex items-center justify-center">
-            
             {images.length > 1 && (
               <>
                 <button
@@ -118,37 +105,37 @@ const ProductDetailsModal = ({ product, onClose }) => {
               FEATURED
             </span>
           )}
+        </div>
 
+        {/* RIGHT - DETAILS */}
+        <div className="relative w-full md:w-1/2 p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 overflow-y-auto max-h-[50vh] md:max-h-[85vh]">
+          {/* title */}
+          <h2 className="text-lg sm:text-2xl font-bold text-teal-900">
+            {product.title}
+          </h2>
           {hasDiscount && (
-            <span className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
+            <span className="absolute right-4 bg-red-500 text-white text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-full">
               {discountType === "percentage"
                 ? `${discount}% OFF`
                 : `₹${discount} OFF`}
             </span>
           )}
-        </div>
-
-        {/* RIGHT - DETAILS */}
-        <div className="w-full md:w-1/2 p-4 sm:p-6 flex flex-col gap-3 sm:gap-4 overflow-y-auto max-h-[50vh] md:max-h-[85vh]">
-          
-          {/* title */}
-          <h2 className="text-lg sm:text-2xl font-bold text-teal-900">
-            {product.title}
-          </h2>
 
           {/* brand */}
           <div className="text-xs sm:text-sm text-gray-600 flex flex-wrap gap-2 sm:gap-3">
-            <span><b>Brand:</b> {product.brand}</span>
-            <span><b>Category:</b> {product.category}</span>
+            <span>
+              <b>Brand:</b> {product.brand}
+            </span>
+            <span>
+              <b>Category:</b> {product.category}
+            </span>
           </div>
 
           {/* rating */}
           <div className="flex items-center gap-2 text-orange-500 text-sm">
             <FaStar />
             <span>{product.averageRating || 0}</span>
-            <span className="text-gray-500">
-              ({product.ratingsCount || 0})
-            </span>
+            <span className="text-gray-500">({product.ratingsCount || 0})</span>
           </div>
 
           {/* price */}
@@ -182,8 +169,12 @@ const ProductDetailsModal = ({ product, onClose }) => {
 
           {/* stock */}
           <div className="flex gap-4 text-xs sm:text-sm">
-            <span><b>Stock:</b> {product.stock}</span>
-            <span><b>Sold:</b> {product.sold}</span>
+            <span>
+              <b>Stock:</b> {product.stock}
+            </span>
+            <span>
+              <b>Sold:</b> {product.sold}
+            </span>
           </div>
 
           {/* specs */}
